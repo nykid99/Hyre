@@ -22,5 +22,5 @@ root.render(
     </AppProvider>
     
   </React.StrictMode>,
-  document.getElementById('root')
+  // document.getElementById('root')
 )
