@@ -4,11 +4,11 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 const UserSchema = new mongoose.Schema({
     name: {
-    type:String,
-    required:[true, 'Please provide name'],
-    minlength:3,
-    maxlength:20,
-    trim: true,
+        type:String,
+        required:[true, 'Please provide name'],
+        minlength:3,
+        maxlength:20,
+        trim: true,
     },
 
     email: {
@@ -43,6 +43,9 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.pre('save',async function(){
+    // console.log(this.modifiedPaths())
+    // console.log(this.isModified('name'))
+    if(!this.isModified('password')) return
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt)
 })
